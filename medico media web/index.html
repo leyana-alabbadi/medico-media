@@ -1,0 +1,4218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ميديكو ميديا — محتوى وتسويق لعيادات الأسنان</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --teal-900:#01565D;
+  --teal-800:#046670;
+  --teal-700:#0A7B84;
+  --gold:#FFCC00;
+  --white:#FFFFFF;
+  --ink:#052F33;
+  --cream:#F6F4EC;
+  --line:rgba(255,255,255,.16);
+  --muted:#5A6B6D;
+
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --ease-smooth:cubic-bezier(.16,1,.3,1);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Tajawal',sans-serif;
+  color:var(--ink);
+  background:var(--white);
+  line-height:1.75;
+  font-size:16px;
+  overflow-x:hidden;
+
+  opacity:1;
+  transition:opacity .5s var(--ease-smooth);
+}
+
+body.page-leaving{
+  opacity:0;
+}
+
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:9998;
+  opacity:.035;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.5) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.5) 1px,
+      transparent 1px
+    );
+
+  background-size:80px 80px;
+  mix-blend-mode:overlay;
+}
+
+h1,
+h2,
+h3{
+  font-family:'Tajawal',sans-serif;
+  font-weight:800;
+}
+
+.mm-ring span,
+.brand-latin{
+  font-family:'Baloo 2',sans-serif;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+.wrap{
+  max-width:1160px;
+  margin:0 auto;
+  padding:0 28px;
+}
+
+section{
+  padding:96px 0;
+}
+
+s{
+  opacity:.55;
+  font-weight:500;
+}
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+.page-loader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+
+  background:var(--teal-900);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+
+  transition:
+    opacity .5s var(--ease-smooth),
+    visibility .5s ease;
+}
+
+.page-loader.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-mark{
+  width:72px;
+  height:72px;
+
+  border:2px solid rgba(255,204,0,.20);
+  border-top-color:var(--gold);
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  position:relative;
+
+  animation:loaderSpin 1.2s linear infinite;
+
+  box-shadow:
+    0 0 28px rgba(255,204,0,.08);
+}
+
+.loader-mark::before{
+  content:'';
+  position:absolute;
+  inset:-8px;
+
+  border:1px solid rgba(255,204,0,.13);
+  border-radius:50%;
+
+  animation:loaderPulse 1.5s ease-in-out infinite;
+}
+
+.loader-mark span{
+  color:var(--gold);
+
+  font-family:'Baloo 2',sans-serif;
+  font-size:18px;
+  font-weight:800;
+  letter-spacing:-1px;
+
+  animation:loaderText 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes loaderSpin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes loaderPulse{
+  0%,100%{
+    transform:scale(.94);
+    opacity:.35;
+  }
+
+  50%{
+    transform:scale(1.06);
+    opacity:.8;
+  }
+}
+
+@keyframes loaderText{
+  from{
+    opacity:.65;
+    transform:scale(.96);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  background:rgba(1,86,93,.97);
+
+  border-bottom:1px solid var(--line);
+
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+
+  transition:
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+nav.scrolled{
+  background:rgba(1,86,93,.92);
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.14);
+}
+
+nav .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding-top:16px;
+  padding-bottom:16px;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:13px;
+
+  transition:opacity .2s ease;
+}
+
+.logo:hover{
+  opacity:.88;
+}
+
+.mm-ring{
+  width:44px;
+  height:44px;
+
+  border-radius:50%;
+  border:3px solid var(--gold);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  flex-shrink:0;
+
+  position:relative;
+
+  transition:
+    transform .3s var(--ease),
+    box-shadow .3s ease;
+}
+
+.mm-ring::before{
+  content:'';
+
+  position:absolute;
+  inset:-7px;
+
+  border:1px solid rgba(255,204,0,.18);
+  border-radius:50%;
+
+  animation:lensPulse 3.5s ease-in-out infinite;
+}
+
+.mm-ring::after{
+  content:'';
+
+  position:absolute;
+
+  width:5px;
+  height:5px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  box-shadow:
+    0 0 12px rgba(255,204,0,.7);
+
+  animation:focusBlink 2.5s ease-in-out infinite;
+}
+
+.mm-ring span{
+  font-weight:800;
+  color:var(--gold);
+
+  font-size:16px;
+  letter-spacing:-1px;
+
+  position:relative;
+  z-index:2;
+}
+
+.logo:hover .mm-ring{
+  transform:scale(1.06);
+
+  box-shadow:
+    0 0 0 4px rgba(255,204,0,.14),
+    0 0 24px rgba(255,204,0,.16);
+}
+
+.logo-text{
+  color:var(--white);
+
+  font-size:19px;
+  font-weight:700;
+}
+
+.logo-text b{
+  color:var(--gold);
+  font-weight:800;
+}
+
+@keyframes lensPulse{
+  0%,100%{
+    transform:scale(.96);
+    opacity:.4;
+  }
+
+  50%{
+    transform:scale(1.08);
+    opacity:1;
+  }
+}
+
+@keyframes focusBlink{
+  0%,100%{
+    opacity:.45;
+  }
+
+  50%{
+    opacity:1;
+  }
+}
+
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.nav-links{
+  display:flex;
+  gap:30px;
+  align-items:center;
+}
+
+.nav-links a{
+  color:var(--white);
+
+  font-size:15px;
+  opacity:.85;
+
+  position:relative;
+
+  padding-bottom:5px;
+
+  transition:
+    opacity .25s ease,
+    color .25s ease;
+}
+
+.nav-links a:not(.btn-gold)::after{
+  content:'';
+
+  position:absolute;
+
+  right:0;
+  bottom:0;
+
+  width:0;
+  height:2px;
+
+  background:var(--gold);
+
+  box-shadow:
+    0 0 8px rgba(255,204,0,.45);
+
+  transition:
+    width .35s var(--ease);
+}
+
+.nav-links a:not(.btn-gold):hover{
+  opacity:1;
+}
+
+.nav-links a:not(.btn-gold):hover::after{
+  width:100%;
+}
+
+.nav-links a.active:not(.btn-gold){
+  opacity:1;
+  color:var(--gold);
+}
+
+.nav-links a.active:not(.btn-gold)::after{
+  width:100%;
+}
+
+
+/* =========================================================
+   GOLD BUTTON
+========================================================= */
+
+.btn-gold{
+  background:var(--gold);
+  color:var(--teal-900);
+
+  font-weight:700;
+
+  padding:11px 22px;
+
+  border-radius:30px;
+
+  font-size:14.5px;
+
+  border:none;
+  cursor:pointer;
+
+  transition:
+    transform .25s var(--ease),
+    box-shadow .25s ease;
+
+  display:inline-block;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.btn-gold::before{
+  content:'';
+
+  position:absolute;
+
+  top:0;
+  left:-80%;
+
+  width:55%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.45),
+      transparent
+    );
+
+  transform:skewX(-20deg);
+
+  transition:left .65s ease;
+}
+
+.btn-gold:hover::before{
+  left:130%;
+}
+
+.btn-gold:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 12px 24px rgba(255,204,0,.35),
+    0 0 25px rgba(255,204,0,.08);
+}
+
+.btn-gold:active{
+  transform:translateY(-1px);
+}
+
+.btn-gold.active{
+  color:var(--teal-900);
+}
+
+
+/* =========================================================
+   NAV TOGGLE
+========================================================= */
+
+.nav-toggle{
+  display:none;
+
+  background:none;
+  border:none;
+
+  color:var(--white);
+
+  font-size:26px;
+
+  cursor:pointer;
+
+  width:44px;
+  height:44px;
+
+  border-radius:10px;
+
+  align-items:center;
+  justify-content:center;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  background:
+    radial-gradient(
+      circle at 75% 45%,
+      rgba(10,123,132,.35),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      var(--teal-900),
+      #023F44
+    );
+
+  color:var(--white);
+
+  position:relative;
+  overflow:hidden;
+
+  padding:100px 0 120px;
+
+  isolation:isolate;
+}
+
+.hero::before{
+  content:'';
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,204,0,.08);
+
+  right:-170px;
+  top:-150px;
+
+  animation:heroOrbit 18s linear infinite;
+}
+
+.hero::after{
+  content:'';
+
+  position:absolute;
+
+  width:2px;
+  height:180%;
+
+  top:-40%;
+  left:20%;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(255,204,0,.12),
+      transparent
+    );
+
+  transform:rotate(18deg);
+
+  animation:lightScan 7s ease-in-out infinite;
+}
+
+@keyframes heroOrbit{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes lightScan{
+  0%,100%{
+    opacity:0;
+    transform:
+      translateX(-250px)
+      rotate(18deg);
+  }
+
+  45%,55%{
+    opacity:1;
+  }
+
+  70%{
+    opacity:0;
+    transform:
+      translateX(350px)
+      rotate(18deg);
+  }
+}
+
+.hero-rings{
+  position:absolute;
+
+  top:-80px;
+  right:-100px;
+
+  width:340px;
+  height:340px;
+
+  border-radius:50%;
+
+  border:2px solid rgba(255,255,255,.12);
+
+  --mx:0px;
+  --my:0px;
+
+  transform:
+    translate(var(--mx),var(--my));
+
+  animation:
+    heroRingRotate 22s linear infinite;
+}
+
+.hero-rings::before{
+  content:'';
+
+  position:absolute;
+
+  inset:30px;
+
+  border-radius:50%;
+
+  border:2px solid rgba(255,255,255,.12);
+}
+
+.hero-rings::after{
+  content:'';
+
+  position:absolute;
+
+  inset:60px;
+
+  border-radius:50%;
+
+  border:2px solid rgba(255,255,255,.12);
+
+  animation:
+    focusPulse 4s ease-in-out infinite;
+}
+
+@keyframes heroRingRotate{
+  from{
+    transform:
+      translate(var(--mx),var(--my))
+      rotate(0deg);
+  }
+
+  to{
+    transform:
+      translate(var(--mx),var(--my))
+      rotate(360deg);
+  }
+}
+
+@keyframes focusPulse{
+  0%,100%{
+    transform:scale(1);
+    opacity:.45;
+  }
+
+  50%{
+    transform:scale(1.07);
+    opacity:1;
+  }
+}
+
+.hero .wrap{
+  position:relative;
+
+  display:grid;
+
+  grid-template-columns:
+    1.1fr .9fr;
+
+  gap:60px;
+
+  align-items:center;
+
+  z-index:2;
+}
+
+.eyebrow{
+  color:var(--gold);
+
+  font-size:14px;
+  font-weight:700;
+
+  margin-bottom:18px;
+}
+
+.hero h1{
+  font-size:44px;
+
+  line-height:1.3;
+
+  margin-bottom:22px;
+
+  animation:
+    heroText .8s .15s both var(--ease);
+}
+
+.hero h1 .accent{
+  color:var(--gold);
+
+  text-shadow:
+    0 0 25px rgba(255,204,0,.15);
+}
+
+.hero p.lead{
+  font-size:17.5px;
+
+  max-width:480px;
+
+  color:rgba(255,255,255,.85);
+
+  margin-bottom:34px;
+
+  animation:
+    heroText .8s .28s both var(--ease);
+}
+
+.hero .eyebrow{
+  animation:
+    heroText .8s both var(--ease);
+}
+
+.hero-cta{
+  display:flex;
+
+  gap:16px;
+
+  flex-wrap:wrap;
+
+  animation:
+    heroText .8s .4s both var(--ease);
+}
+
+@keyframes heroText{
+  from{
+    opacity:0;
+    transform:translateY(22px);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+
+/* =========================================================
+   OUTLINE BUTTON
+========================================================= */
+
+.btn-outline{
+  border:2px solid var(--white);
+
+  color:var(--white);
+
+  padding:11px 24px;
+
+  border-radius:30px;
+
+  font-weight:700;
+
+  font-size:14.5px;
+
+  display:inline-block;
+
+  transition:
+    background .25s ease,
+    color .25s ease,
+    transform .25s ease;
+}
+
+.btn-outline:hover{
+  background:var(--white);
+
+  color:var(--teal-900);
+
+  transform:translateY(-3px);
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+.phone-frame{
+  width:250px;
+
+  margin:0 auto;
+
+  border-radius:32px;
+
+  padding:14px;
+
+  background:
+    linear-gradient(
+      160deg,
+      #0C0C0C,
+      #1A1A1A
+    );
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,255,255,.08);
+
+  position:relative;
+
+  transition:
+    box-shadow .5s ease;
+
+  animation:
+    phoneEntrance 1s .25s both var(--ease);
+
+  --mouse-x:0;
+  --mouse-y:0;
+}
+
+@keyframes phoneEntrance{
+  from{
+    opacity:0;
+
+    transform:
+      translateY(35px)
+      rotate(4deg)
+      scale(.94);
+  }
+
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.phone-frame::before{
+  content:'';
+
+  position:absolute;
+
+  inset:-8px;
+
+  border-radius:39px;
+
+  border:1px solid rgba(255,204,0,.2);
+
+  pointer-events:none;
+
+  animation:
+    phoneGlow 3s ease-in-out infinite;
+}
+
+@keyframes phoneGlow{
+  0%,100%{
+    opacity:.3;
+
+    box-shadow:
+      0 0 0 rgba(255,204,0,0);
+  }
+
+  50%{
+    opacity:1;
+
+    box-shadow:
+      0 0 30px rgba(255,204,0,.12);
+  }
+}
+
+.phone-frame:hover{
+  box-shadow:
+    0 40px 70px rgba(0,0,0,.5);
+}
+
+.phone-screen{
+  aspect-ratio:9/16;
+
+  border-radius:22px;
+
+  overflow:hidden;
+
+  position:relative;
+
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      var(--teal-700),
+      var(--teal-900) 80%
+    );
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+}
+
+.phone-screen::after{
+  content:'';
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      transparent 0%,
+      rgba(255,255,255,.04) 50%,
+      transparent 51%
+    );
+
+  background-size:100% 8px;
+
+  opacity:.45;
+
+  pointer-events:none;
+}
+
+.phone-hud{
+  position:absolute;
+
+  top:16px;
+  left:0;
+  right:0;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  padding:0 16px;
+
+  z-index:2;
+}
+
+.rec{
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  font-size:11px;
+
+  color:rgba(255,255,255,.8);
+
+  letter-spacing:.04em;
+}
+
+.rec-dot{
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:#FF4D4D;
+
+  animation:
+    recPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes recPulse{
+  0%,100%{
+    opacity:1;
+    transform:scale(1);
+  }
+
+  50%{
+    opacity:.4;
+    transform:scale(.8);
+  }
+}
+
+.phone-tag{
+  font-size:11px;
+
+  color:rgba(255,255,255,.55);
+}
+
+.tooth-stage{
+  width:150px;
+  height:170px;
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  perspective:1100px;
+
+  position:relative;
+}
+
+.tooth-stage::before{
+  content:'';
+
+  position:absolute;
+
+  width:112px;
+  height:112px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,204,0,.22),
+      transparent 72%
+    );
+
+  animation:
+    glowPulse 4.2s ease-in-out infinite;
+
+  z-index:0;
+}
+
+@keyframes glowPulse{
+  0%,100%{
+    transform:scale(1);
+    opacity:.55;
+  }
+
+  50%{
+    transform:scale(1.18);
+    opacity:.9;
+  }
+}
+
+.tooth-stage::after{
+  content:'';
+
+  position:absolute;
+
+  width:125px;
+  height:125px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,204,0,.22);
+
+  border-left-color:transparent;
+  border-bottom-color:transparent;
+
+  animation:
+    slowRotate 8s linear infinite reverse;
+}
+
+@keyframes slowRotate{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.tooth-bob{
+  animation:
+    toothBob 3.8s ease-in-out infinite;
+
+  position:relative;
+  z-index:1;
+}
+
+.tooth-spin{
+  width:126px;
+
+  transform-style:preserve-3d;
+
+  animation:
+    toothSpin 11s linear infinite;
+
+  filter:
+    drop-shadow(
+      0 16px 18px rgba(0,0,0,.5)
+    );
+
+  position:relative;
+}
+
+.tooth-spin svg{
+  width:100%;
+  height:auto;
+
+  display:block;
+}
+
+.tooth-sheen{
+  position:absolute;
+
+  inset:0;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(255,255,255,.5) 48%,
+      transparent 62%
+    );
+
+  mix-blend-mode:screen;
+
+  animation:
+    sheenSweep 4.4s
+    cubic-bezier(.37,0,.63,1)
+    infinite;
+}
+
+@keyframes sheenSweep{
+  0%{
+    transform:translateX(-65%);
+  }
+
+  50%{
+    transform:translateX(65%);
+  }
+
+  100%{
+    transform:translateX(-65%);
+  }
+}
+
+@keyframes toothSpin{
+  from{
+    transform:rotateY(0deg);
+  }
+
+  to{
+    transform:rotateY(360deg);
+  }
+}
+
+@keyframes toothBob{
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(-9px);
+  }
+}
+
+.phone-caption{
+  position:absolute;
+
+  bottom:18px;
+
+  left:0;
+  right:0;
+
+  text-align:center;
+
+  z-index:2;
+}
+
+.phone-caption .label{
+  font-size:11px;
+
+  color:var(--gold);
+
+  letter-spacing:.04em;
+
+  font-weight:700;
+}
+
+.phone-caption .sub{
+  font-size:10.5px;
+
+  color:rgba(255,255,255,.55);
+
+  margin-top:2px;
+}
+
+
+/* =========================================================
+   TRUST
+========================================================= */
+
+.trust{
+  background:var(--cream);
+
+  padding:22px 0;
+
+  overflow:hidden;
+}
+
+.trust .wrap{
+  display:flex;
+
+  justify-content:space-between;
+
+  flex-wrap:wrap;
+
+  gap:18px;
+
+  font-size:14px;
+
+  color:var(--teal-900);
+
+  font-weight:700;
+}
+
+.trust span{
+  position:relative;
+
+  transition:
+    transform .3s ease,
+    color .3s ease;
+}
+
+.trust span::before{
+  content:'';
+
+  width:6px;
+  height:6px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  display:inline-block;
+
+  margin-left:8px;
+
+  box-shadow:
+    0 0 10px rgba(255,204,0,.4);
+}
+
+.trust span:hover{
+  color:var(--teal-700);
+
+  transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   SECTION HEAD
+========================================================= */
+
+.section-head{
+  max-width:620px;
+
+  margin-bottom:52px;
+}
+
+.section-head .eyebrow{
+  color:var(--teal-800);
+}
+
+.section-head h2{
+  font-size:30px;
+
+  color:var(--teal-900);
+
+  margin-bottom:14px;
+
+  line-height:1.35;
+}
+
+.section-head p{
+  color:var(--muted);
+
+  font-size:16.5px;
+}
+
+
+/* =========================================================
+   SERVICE CARDS
+========================================================= */
+
+.services-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:26px;
+}
+
+.service-card{
+  border:1px solid #E4E1D6;
+
+  border-radius:16px;
+
+  padding:30px 26px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:14px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  background:var(--white);
+
+  opacity:0;
+
+  transform:
+    translateY(35px);
+
+  transition:
+    box-shadow .4s var(--ease),
+    transform .4s var(--ease),
+    border-color .35s ease,
+    opacity .7s ease;
+}
+
+.service-card.visible{
+  opacity:1;
+
+  transform:
+    translateY(0);
+
+  transition-delay:var(--delay,0s);
+}
+
+.service-card::before{
+  content:'';
+
+  position:absolute;
+
+  top:0;
+  right:0;
+
+  height:4px;
+
+  width:0;
+
+  background:var(--gold);
+
+  transition:
+    width .4s var(--ease);
+}
+
+.service-card::after{
+  content:'';
+
+  position:absolute;
+
+  width:180px;
+  height:180px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(10,123,132,.07);
+
+  left:-100px;
+  bottom:-100px;
+
+  transition:
+    transform .5s ease;
+}
+
+.service-card:hover{
+  box-shadow:
+    0 22px 44px rgba(1,86,93,.16);
+
+  transform:
+    translateY(-7px);
+
+  border-color:
+    var(--teal-700);
+}
+
+.service-card:hover::before{
+  width:100%;
+}
+
+.service-card:hover::after{
+  transform:scale(1.5);
+}
+
+.tri{
+  width:34px;
+  height:30px;
+
+  clip-path:
+    polygon(
+      0% 100%,
+      50% 0%,
+      100% 100%
+    );
+
+  background:var(--gold);
+
+  transition:
+    transform .35s ease,
+    filter .35s ease;
+}
+
+.service-card:hover .tri{
+  transform:
+    rotate(8deg)
+    scale(1.08);
+
+  filter:
+    drop-shadow(
+      0 0 8px rgba(255,204,0,.4)
+    );
+}
+
+.service-card h3{
+  font-size:19px;
+
+  color:var(--teal-900);
+
+  transition:
+    color .3s ease;
+}
+
+.service-card:hover h3{
+  color:var(--teal-800);
+}
+
+.service-card p{
+  font-size:14.5px;
+
+  color:var(--muted);
+
+  flex-grow:1;
+}
+
+.price-row{
+  display:flex;
+
+  align-items:baseline;
+
+  gap:10px;
+
+  padding-top:8px;
+
+  border-top:
+    1px solid #EDEAE0;
+}
+
+.price-row .was{
+  font-size:14px;
+
+  color:#A9AE9F;
+}
+
+.price-row .now{
+  font-size:22px;
+
+  font-weight:800;
+
+  color:var(--teal-900);
+
+  transition:
+    color .3s ease;
+}
+
+.service-card:hover
+.price-row .now{
+  color:var(--teal-700);
+}
+
+.price-note{
+  font-size:12px;
+
+  color:#8A9598;
+}
+
+.card-link{
+  font-size:13.5px;
+
+  font-weight:700;
+
+  color:var(--teal-800);
+
+  margin-top:4px;
+
+  transition:
+    color .3s ease,
+    transform .3s ease;
+
+  display:inline-block;
+}
+
+.card-link::before{
+  content:'← ';
+}
+
+.service-card:hover .card-link{
+  color:var(--gold);
+
+  transform:
+    translateX(-4px);
+}
+
+
+/* =========================================================
+   BUNDLE
+========================================================= */
+
+.bundle{
+  background:
+    linear-gradient(
+      160deg,
+      var(--teal-900),
+      var(--teal-800)
+    );
+
+  border-radius:20px;
+
+  padding:44px;
+
+  color:var(--white);
+
+  display:grid;
+
+  grid-template-columns:
+    1.1fr .9fr;
+
+  gap:40px;
+
+  align-items:center;
+
+  margin-top:44px;
+
+  border:1px solid transparent;
+
+  transition:
+    box-shadow .35s ease,
+    transform .35s ease,
+    border-color .35s ease;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.bundle::before{
+  content:'';
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(255,204,0,.12);
+
+  left:-130px;
+  top:-140px;
+
+  animation:
+    slowRotate 15s linear infinite;
+}
+
+.bundle::after{
+  content:'';
+
+  position:absolute;
+
+  width:90px;
+  height:200%;
+
+  top:-50%;
+  left:-150px;
+
+  background:
+    linear-gradient(
+      transparent,
+      rgba(255,204,0,.12),
+      transparent
+    );
+
+  transform:rotate(20deg);
+
+  animation:
+    bundleScan 6s ease-in-out infinite;
+}
+
+@keyframes bundleScan{
+  0%,100%{
+    left:-150px;
+    opacity:0;
+  }
+
+  40%{
+    opacity:1;
+  }
+
+  70%{
+    left:110%;
+    opacity:0;
+  }
+}
+
+.bundle > *{
+  position:relative;
+  z-index:2;
+}
+
+.bundle:hover{
+  box-shadow:
+    0 26px 54px rgba(0,0,0,.35);
+
+  transform:
+    translateY(-5px);
+
+  border-color:
+    rgba(255,204,0,.4);
+}
+
+.bundle h3{
+  font-size:24px;
+
+  margin-bottom:12px;
+}
+
+.bundle p{
+  color:rgba(255,255,255,.8);
+
+  font-size:15px;
+
+  margin-bottom:20px;
+}
+
+.bundle-list{
+  list-style:none;
+
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap:10px 20px;
+}
+
+.bundle-list li{
+  font-size:14px;
+
+  padding-right:22px;
+
+  position:relative;
+}
+
+.bundle-list li::before{
+  content:'✓';
+
+  position:absolute;
+
+  right:0;
+
+  color:var(--gold);
+
+  font-weight:700;
+}
+
+.bundle-price{
+  text-align:center;
+
+  background:
+    rgba(255,255,255,.06);
+
+  border-radius:16px;
+
+  padding:32px;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  transition:
+    transform .35s ease,
+    background .35s ease;
+}
+
+.bundle:hover .bundle-price{
+  transform:scale(1.025);
+
+  background:
+    rgba(255,255,255,.09);
+}
+
+.bundle-price .was{
+  font-size:16px;
+
+  color:rgba(255,255,255,.5);
+}
+
+.bundle-price .now{
+  font-size:40px;
+
+  color:var(--gold);
+
+  font-weight:800;
+
+  margin:6px 0;
+}
+
+.bundle-price .span{
+  font-size:13px;
+
+  color:rgba(255,255,255,.7);
+
+  margin-bottom:18px;
+
+  display:block;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-sec .wrap{
+  display:grid;
+
+  grid-template-columns:
+    .85fr 1.15fr;
+
+  gap:56px;
+
+  align-items:center;
+}
+
+.about-photo{
+  aspect-ratio:3/4;
+
+  border-radius:16px;
+
+  background:
+    linear-gradient(
+      160deg,
+      #EFEADA,
+      #E4DFCE
+    );
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  border:
+    1px solid #E4E1D6;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.about-photo::before,
+.about-photo::after{
+  content:'';
+
+  position:absolute;
+
+  width:70px;
+  height:70px;
+
+  border:
+    2px solid rgba(1,86,93,.18);
+}
+
+.about-photo::before{
+  top:20px;
+  right:20px;
+
+  border-left:0;
+  border-bottom:0;
+}
+
+.about-photo::after{
+  bottom:20px;
+  left:20px;
+
+  border-right:0;
+  border-top:0;
+}
+
+.about-photo p{
+  color:#8A9598;
+
+  font-size:13.5px;
+
+  text-align:center;
+
+  padding:0 20px;
+}
+
+.about-sec h2{
+  font-size:27px;
+
+  color:var(--teal-900);
+
+  margin-bottom:18px;
+}
+
+.about-sec p{
+  color:var(--muted);
+
+  font-size:16px;
+
+  margin-bottom:16px;
+}
+
+
+/* =========================================================
+   TEAL BUTTON
+========================================================= */
+
+.btn-teal{
+  background:var(--teal-900);
+
+  color:var(--white);
+
+  padding:12px 25px;
+
+  border-radius:30px;
+
+  display:inline-block;
+
+  font-weight:700;
+
+  font-size:14px;
+
+  transition:
+    transform .25s var(--ease),
+    box-shadow .25s ease;
+}
+
+.btn-teal:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 12px 24px rgba(1,86,93,.25);
+}
+
+
+/* =========================================================
+   TESTIMONIALS
+========================================================= */
+
+.testimonials{
+  background:var(--cream);
+}
+
+.t-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:24px;
+}
+
+.t-card{
+  background:var(--white);
+
+  border-radius:14px;
+
+  padding:28px;
+
+  border:
+    1px solid #E4E1D6;
+
+  transition:
+    box-shadow .3s ease,
+    transform .3s ease,
+    border-color .3s ease;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.t-card::before{
+  content:'“';
+
+  position:absolute;
+
+  top:-20px;
+  left:18px;
+
+  font-family:Georgia,serif;
+
+  font-size:90px;
+
+  color:
+    rgba(1,86,93,.045);
+}
+
+.t-card:hover{
+  box-shadow:
+    0 18px 34px rgba(1,86,93,.14);
+
+  transform:
+    translateY(-5px);
+
+  border-color:
+    var(--teal-700);
+}
+
+.t-card p{
+  font-size:15px;
+
+  color:#3E4C4E;
+
+  margin-bottom:18px;
+}
+
+.t-name{
+  font-weight:700;
+
+  color:var(--teal-900);
+
+  font-size:14px;
+}
+
+.t-role{
+  font-size:12.5px;
+
+  color:#8A9598;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta-band{
+  background:var(--gold);
+
+  text-align:center;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.cta-band::before,
+.cta-band::after{
+  content:'';
+
+  position:absolute;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(1,86,93,.12);
+}
+
+.cta-band::before{
+  width:320px;
+  height:320px;
+
+  right:-140px;
+  top:-160px;
+
+  animation:
+    slowRotate 20s linear infinite;
+}
+
+.cta-band::after{
+  width:200px;
+  height:200px;
+
+  left:-90px;
+  bottom:-100px;
+
+  animation:
+    slowRotate 15s linear infinite reverse;
+}
+
+.cta-band .wrap{
+  position:relative;
+  z-index:2;
+}
+
+.cta-band h2{
+  font-size:27px;
+
+  color:var(--teal-900);
+
+  margin-bottom:16px;
+}
+
+.cta-band p{
+  color:#3E4C10;
+
+  margin-bottom:28px;
+
+  font-size:16px;
+}
+
+.btn-dark{
+  background:var(--teal-900);
+
+  color:var(--white);
+
+  padding:13px 30px;
+
+  border-radius:30px;
+
+  font-weight:700;
+
+  display:inline-block;
+
+  position:relative;
+
+  overflow:hidden;
+
+  transition:
+    transform .25s var(--ease),
+    box-shadow .25s ease;
+}
+
+.btn-dark::before{
+  content:'';
+
+  position:absolute;
+
+  top:0;
+  left:-80%;
+
+  width:55%;
+  height:100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.18),
+      transparent
+    );
+
+  transform:skewX(-20deg);
+
+  transition:left .65s ease;
+}
+
+.btn-dark:hover::before{
+  left:130%;
+}
+
+.btn-dark:hover{
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 14px 26px rgba(1,86,93,.3);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(10,123,132,.2),
+      transparent 28%
+    ),
+    var(--teal-900);
+
+  color:rgba(255,255,255,.75);
+
+  padding:56px 0 28px;
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+footer::before{
+  content:'';
+
+  position:absolute;
+
+  width:260px;
+  height:260px;
+
+  border-radius:50%;
+
+  border:
+    1px solid rgba(255,204,0,.08);
+
+  left:-130px;
+  top:-100px;
+
+  animation:
+    slowRotate 20s linear infinite;
+}
+
+.foot-grid{
+  display:grid;
+
+  grid-template-columns:
+    1.3fr 1fr 1fr;
+
+  gap:40px;
+
+  margin-bottom:44px;
+
+  position:relative;
+  z-index:2;
+}
+
+footer h4{
+  color:var(--white);
+
+  font-size:15px;
+
+  margin-bottom:16px;
+
+  font-weight:800;
+}
+
+footer ul{
+  list-style:none;
+}
+
+footer li{
+  margin-bottom:10px;
+
+  font-size:14px;
+}
+
+footer li a{
+  display:inline-block;
+
+  transition:
+    color .25s ease,
+    transform .25s ease;
+}
+
+footer li a:hover{
+  color:var(--gold);
+
+  transform:
+    translateX(-4px);
+}
+
+footer a.contact-link{
+  color:var(--gold);
+
+  font-weight:700;
+}
+
+.foot-bottom{
+  border-top:
+    1px solid var(--line);
+
+  padding-top:22px;
+
+  font-size:13px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  position:relative;
+  z-index:2;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.reveal{
+  opacity:0;
+
+  transform:
+    translateY(30px);
+
+  transition:
+    opacity .8s ease,
+    transform .8s var(--ease);
+}
+
+.reveal.visible{
+  opacity:1;
+
+  transform:none;
+}
+
+
+/* =========================================================
+   CURSOR LIGHT
+========================================================= */
+
+.cursor-light{
+  position:fixed;
+
+  width:280px;
+  height:280px;
+
+  border-radius:50%;
+
+  pointer-events:none;
+
+  z-index:1;
+
+  transform:
+    translate(-50%,-50%);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,204,0,.055),
+      transparent 68%
+    );
+
+  opacity:0;
+
+  transition:
+    opacity .4s ease;
+
+  mix-blend-mode:screen;
+}
+
+@media (hover:hover) and (pointer:fine){
+
+  .cursor-light{
+    opacity:.8;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:860px){
+
+  section{
+    padding:75px 0;
+  }
+
+  .hero{
+    padding:75px 0 90px;
+  }
+
+  .hero .wrap{
+    grid-template-columns:1fr;
+
+    gap:50px;
+  }
+
+  .hero h1{
+    font-size:32px;
+  }
+
+  .hero p.lead{
+    font-size:16px;
+  }
+
+  .services-grid{
+    grid-template-columns:1fr;
+  }
+
+  .bundle{
+    grid-template-columns:1fr;
+
+    padding:32px 25px;
+  }
+
+  .bundle-list{
+    grid-template-columns:1fr;
+  }
+
+  .about-sec .wrap{
+    grid-template-columns:1fr;
+  }
+
+  .t-grid{
+    grid-template-columns:1fr;
+  }
+
+  .foot-grid{
+    grid-template-columns:1fr;
+
+    gap:28px;
+  }
+
+
+  /* NAV MOBILE */
+
+  .nav-toggle{
+    display:flex;
+
+    position:relative;
+    z-index:102;
+  }
+
+  .nav-links{
+    position:fixed;
+
+    top:77px;
+    left:0;
+    right:0;
+
+    background:
+      rgba(1,86,93,.98);
+
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    flex-direction:column;
+
+    padding:22px 28px 28px;
+
+    gap:18px;
+
+    display:flex;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:
+      translateY(-12px);
+
+    pointer-events:none;
+
+    border-bottom:
+      1px solid var(--line);
+
+    box-shadow:
+      0 18px 35px rgba(0,0,0,.16);
+
+    transition:
+      opacity .3s ease,
+      transform .35s var(--ease),
+      visibility .3s ease;
+  }
+
+  .nav-links.open{
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+      translateY(0);
+
+    pointer-events:auto;
+  }
+
+  .nav-links a{
+    width:100%;
+
+    text-align:center;
+
+    font-size:16px;
+  }
+
+  .nav-links a:not(.btn-gold)::after{
+    right:50%;
+
+    transform:
+      translateX(50%);
+  }
+
+  .nav-links a:not(.btn-gold):hover::after,
+  .nav-links a.active:not(.btn-gold)::after{
+    width:60px;
+  }
+
+  .nav-links .btn-gold{
+    width:100%;
+
+    text-align:center;
+  }
+
+
+  .trust .wrap{
+    justify-content:center;
+
+    gap:15px 28px;
+  }
+
+
+  .phone-frame{
+    width:230px;
+  }
+
+}
+
+
+@media(max-width:560px){
+
+  .wrap{
+    padding:0 20px;
+  }
+
+  .hero{
+    padding:60px 0 75px;
+  }
+
+  .hero h1{
+    font-size:29px;
+  }
+
+  .hero-cta{
+    flex-direction:column;
+  }
+
+  .hero-cta a{
+    text-align:center;
+
+    width:100%;
+  }
+
+  .section-head h2{
+    font-size:26px;
+  }
+
+  .service-card{
+    padding:26px 22px;
+  }
+
+  .bundle-price .now{
+    font-size:34px;
+  }
+
+  .foot-bottom{
+    flex-direction:column;
+  }
+
+  .hero-rings{
+    width:280px;
+    height:280px;
+
+    right:-130px;
+    top:-80px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  html{
+    scroll-behavior:auto;
+  }
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+
+  body{
+    opacity:1;
+  }
+
+  .service-card,
+  .reveal{
+    opacity:1;
+
+    transform:none;
+  }
+
+  .cursor-light{
+    display:none;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     PAGE LOADER
+======================================================= -->
+
+<div
+  class="page-loader"
+  id="pageLoader"
+  aria-hidden="true"
+>
+
+  <div class="loader-mark">
+    <span>MM</span>
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     CURSOR LIGHT
+======================================================= -->
+
+<div
+  class="cursor-light"
+  id="cursorLight"
+></div>
+
+
+<!-- =======================================================
+     NAVBAR
+======================================================= -->
+
+<nav id="mainNav">
+
+  <div class="wrap">
+
+    <a
+      class="logo"
+      href="index.html"
+    >
+
+      <div class="mm-ring">
+        <span>MM</span>
+      </div>
+
+      <div class="logo-text">
+        ميديكو <b>ميديا</b>
+      </div>
+
+    </a>
+
+
+    <div
+      class="nav-links"
+      id="navLinks"
+    >
+
+      <a
+        class="active"
+        href="index.html#services"
+      >
+        الخدمات
+      </a>
+
+      <a href="gallery.html">
+        أعمالنا
+      </a>
+
+      <a href="video.html">
+        فيديو
+      </a>
+
+      <a href="about.html">
+        من نحن
+      </a>
+
+      <a
+        href="contact.html"
+        class="btn-gold"
+      >
+        اطلب عرض سعر
+      </a>
+
+    </div>
+
+
+    <button
+      class="nav-toggle"
+      id="navToggle"
+      aria-expanded="false"
+      aria-label="فتح القائمة"
+    >
+      ☰
+    </button>
+
+  </div>
+
+</nav>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<header class="hero">
+
+  <div class="hero-rings"></div>
+
+
+  <div class="wrap">
+
+
+    <div>
+
+      <div class="eyebrow">
+        محتوى وتسويق لعيادات الأسنان
+      </div>
+
+
+      <h1>
+        محتوى يجذب لعيادتك
+        <span class="accent">
+          مرضى أكثر
+        </span>.
+      </h1>
+
+
+      <p class="lead">
+        تخطط "ميديكو ميديا" وتصوّر وتُنتج الصور والفيديوهات والموشن جرافيك المصممة خصيصًا لعيادات الأسنان، لتبدو كل منشوراتك وكأنها صُنعت لعيادتك تحديدًا، لا نسخة من قالب جاهز.
+      </p>
+
+
+      <div class="hero-cta">
+
+        <a
+          href="contact.html"
+          class="btn-gold"
+        >
+          اطلب عرض سعر
+        </a>
+
+
+        <a
+          href="gallery.html"
+          class="btn-outline"
+        >
+          شاهد أعمالنا
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <!-- PHONE -->
+
+    <div>
+
+      <div class="phone-frame">
+
+        <div class="phone-screen">
+
+
+          <div class="phone-hud">
+
+            <div class="rec">
+
+              <span class="rec-dot"></span>
+
+              تسجيل
+
+            </div>
+
+
+            <div class="phone-tag">
+              موشن جرافيك
+            </div>
+
+          </div>
+
+
+          <div class="tooth-stage">
+
+            <div class="tooth-bob">
+
+              <div class="tooth-spin">
+
+
+                <svg
+                  viewBox="0 0 200 240"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+
+                  <defs>
+
+                    <linearGradient
+                      id="toothGrad"
+                      x1="0"
+                      y1="0"
+                      x2="0.3"
+                      y2="1"
+                    >
+
+                      <stop
+                        offset="0%"
+                        stop-color="#FFFFFF"
+                      />
+
+                      <stop
+                        offset="45%"
+                        stop-color="#F1F2ED"
+                      />
+
+                      <stop
+                        offset="80%"
+                        stop-color="#DEE3DC"
+                      />
+
+                      <stop
+                        offset="100%"
+                        stop-color="#C9D1C8"
+                      />
+
+                    </linearGradient>
+
+
+                    <linearGradient
+                      id="toothShade"
+                      x1="0"
+                      y1="0"
+                      x2="1"
+                      y2="0"
+                    >
+
+                      <stop
+                        offset="0%"
+                        stop-color="#01565D"
+                        stop-opacity="0"
+                      />
+
+                      <stop
+                        offset="100%"
+                        stop-color="#01565D"
+                        stop-opacity=".2"
+                      />
+
+                    </linearGradient>
+
+                  </defs>
+
+
+                  <path
+                    d="M100,8 C56,8 29,40 31,76 C32,96 40,110 44,132 C48,156 53,182 60,206 C64,223 70,236 80,236 C91,236 90,196 100,196 C110,196 109,236 120,236 C130,236 136,223 140,206 C147,182 152,156 156,132 C160,110 168,96 169,76 C171,40 144,8 100,8 Z"
+                    fill="url(#toothGrad)"
+                    stroke="rgba(1,86,93,.35)"
+                    stroke-width="1.5"
+                  />
+
+
+                  <path
+                    d="M100,8 C56,8 29,40 31,76 C32,96 40,110 44,132 C48,156 53,182 60,206 C64,223 70,236 80,236 C91,236 90,196 100,196 C110,196 109,236 120,236 C130,236 136,223 140,206 C147,182 152,156 156,132 C160,110 168,96 169,76 C171,40 144,8 100,8 Z"
+                    fill="url(#toothShade)"
+                  />
+
+
+                  <path
+                    d="M100,20 C112,42 116,58 100,58 C84,58 88,42 100,20 Z"
+                    fill="rgba(1,86,93,.14)"
+                  />
+
+                </svg>
+
+
+                <div class="tooth-sheen"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="phone-caption">
+
+            <div class="label">
+              معاينة الحالة ثلاثية الأبعاد
+            </div>
+
+            <div class="sub">
+              نموذج لمخرجات الموشن جرافيك
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     TRUST
+======================================================= -->
+
+<div class="trust">
+
+  <div class="wrap">
+
+    <span>
+      إعلانات العيادات
+    </span>
+
+    <span>
+      تصوير الحالات
+    </span>
+
+    <span>
+      موشن جرافيك
+    </span>
+
+    <span>
+      باقات محتوى متكاملة
+    </span>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     SERVICES
+======================================================= -->
+
+<section id="services">
+
+  <div class="wrap">
+
+
+    <div class="section-head reveal">
+
+      <div class="eyebrow">
+        الخدمات والأسعار
+      </div>
+
+
+      <h2>
+        باقات مبنية على الطريقة التي تسوّق بها عيادات الأسنان فعليًا
+      </h2>
+
+
+      <p>
+        اضغط على أي بطاقة للاطلاع على التفاصيل الكاملة — ما تتضمنه كل باقة، جميع خيارات التسعير، وطريقة الحجز.
+      </p>
+
+    </div>
+
+
+    <div class="services-grid">
+
+
+      <!-- CARD 1 -->
+
+      <a
+        class="service-card"
+        style="--delay:.05s"
+        href="dental-office-ad.html"
+      >
+
+        <div class="tri"></div>
+
+        <h3>
+          إعلان للحالة
+        </h3>
+
+        <p>
+          إعلان قصير واحترافي للحالة — يُصوَّر في الموقع ويُجهَّز للنشر مباشرة.
+        </p>
+
+        <div class="price-row">
+
+          <span class="was">
+            <s>35,000</s>
+          </span>
+
+          <span class="now">
+            25,000
+          </span>
+
+        </div>
+
+        <div class="price-note">
+          السعر يبدأ من
+        </div>
+
+        <div class="card-link">
+          التفاصيل
+        </div>
+
+      </a>
+
+
+      <!-- CARD 2 -->
+
+      <a
+        class="service-card"
+        style="--delay:.1s"
+        href="dental-photography.html"
+      >
+
+        <div class="tri"></div>
+
+        <h3>
+          تصوير احترافي للعيادة
+        </h3>
+
+        <p>
+          لقطات درون لواجهة العيادة، بالإضافة لتصوير داخلي احترافي للمكان.
+        </p>
+
+        <div class="price-row">
+
+          <span class="was">
+            <s>250,000</s>
+          </span>
+
+          <span class="now">
+            200,000
+          </span>
+
+        </div>
+
+        <div class="price-note">
+          السعر يبدأ من
+        </div>
+
+        <div class="card-link">
+          التفاصيل
+        </div>
+
+      </a>
+
+
+      <!-- CARD 3 -->
+
+      <a
+        class="service-card"
+        style="--delay:.15s"
+        href="story-telling.html"
+      >
+
+        <div class="tri"></div>
+
+        <h3>
+          سرد القصة — عرض الحالة
+        </h3>
+
+        <p>
+          عرض مصوَّر باحترافية يشرح فيه الطبيب حالة حقيقية بأسلوبه الخاص.
+        </p>
+
+        <div class="price-row">
+
+          <span class="was">
+            <s>150,000</s>
+          </span>
+
+          <span class="now">
+            100,000
+          </span>
+
+        </div>
+
+        <div class="price-note">
+          السعر يبدأ من
+        </div>
+
+        <div class="card-link">
+          التفاصيل
+        </div>
+
+      </a>
+
+
+      <!-- CARD 4 -->
+
+      <a
+        class="service-card"
+        style="--delay:.2s"
+        href="motion-graphic.html"
+      >
+
+        <div class="tri"></div>
+
+        <h3>
+          موشن جرافيك
+        </h3>
+
+        <p>
+          مرئيات متحركة ثلاثية الأبعاد — مثل المسح الضوئي ونماذج الأسنان — لتوضيح العلاج بشكل أوضح.
+        </p>
+
+        <div class="price-row">
+
+          <span class="was">
+            <s>75,000</s>
+          </span>
+
+          <span class="now">
+            50,000
+          </span>
+
+        </div>
+
+        <div class="price-note">
+          السعر يبدأ من
+        </div>
+
+        <div class="card-link">
+          التفاصيل
+        </div>
+
+      </a>
+
+
+      <!-- CARD 5 -->
+
+      <a
+        class="service-card"
+        style="--delay:.25s"
+        href="procedure-ad.html"
+      >
+
+        <div class="tri"></div>
+
+        <h3>
+          إعلان لإجراء معيّن
+        </h3>
+
+        <p>
+          إعلان لإجراء عملية كاملة، مصمم ليحوّل المشاهدين إلى حجوزات فعلية.
+        </p>
+
+        <div class="price-row">
+
+          <span class="was">
+            <s>150,000</s>
+          </span>
+
+          <span class="now">
+            125,000
+          </span>
+
+        </div>
+
+        <div class="price-note">
+          السعر يبدأ من
+        </div>
+
+        <div class="card-link">
+          التفاصيل
+        </div>
+
+      </a>
+
+
+      <!-- CARD 6 -->
+
+      <a
+        class="service-card"
+        style="--delay:.3s"
+        href="custom-offer.html"
+      >
+
+        <div class="tri"></div>
+
+        <h3>
+          العرض المخصص
+        </h3>
+
+        <p>
+          باقات فيديو شهرية متدرجة للدكتور، أو خطة مصممة بالكامل حسب احتياج عيادتك.
+        </p>
+
+        <div class="price-row">
+
+          <span class="now">
+            250.000
+          </span>
+
+        </div>
+
+        <div class="price-note">
+          يبدأ من — 3 باقات متاحة
+        </div>
+
+        <div class="card-link">
+          التفاصيل
+        </div>
+
+      </a>
+
+
+    </div>
+
+
+    <!-- ECONOMIC BUNDLE -->
+
+    <a
+      class="bundle"
+      href="economic-offer.html"
+    >
+
+      <div>
+
+        <div
+          class="eyebrow"
+          style="color:var(--gold);"
+        >
+          الأكثر طلبًا
+        </div>
+
+
+        <h3>
+          العرض الاقتصادي
+        </h3>
+
+
+        <p>
+          خطة محتوى كاملة لمدة 12 يومًا للعيادات التي تريد تدفقًا ثابتًا من المحتوى دون إدارة كل جزء بشكل منفصل.
+        </p>
+
+
+        <ul class="bundle-list">
+
+          <li>
+            دورة إنتاج مدتها 12 يومًا
+          </li>
+
+          <li>
+            4 ريلز
+          </li>
+
+          <li>
+            ستوريز يومية
+          </li>
+
+          <li>
+            4 حالات تصوير أسنان
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div class="bundle-price">
+
+        <span class="was">
+          <s>600,000</s>
+        </span>
+
+
+        <div class="now">
+          450,000
+        </div>
+
+
+        <span class="span">
+          باقة متكاملة بسعر واحد
+        </span>
+
+
+        <span class="btn-gold">
+          عرض التفاصيل
+        </span>
+
+      </div>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     ABOUT
+======================================================= -->
+
+<section
+  class="about-sec"
+  style="background:var(--cream);"
+>
+
+  <div class="wrap">
+
+
+    <div class="about-photo reveal">
+
+      <p>
+        مكان صورة الفريق / كواليس العمل
+      </p>
+
+    </div>
+
+
+    <div class="reveal">
+
+      <div
+        class="eyebrow"
+        style="color:var(--teal-800);"
+      >
+        عن ميديكو ميديا
+      </div>
+
+
+      <h2>
+        فريق صغير متخصص حصرًا بمحتوى طب الأسنان
+      </h2>
+
+
+      <p>
+        نحن لا نوزّع وقتنا على كل أنواع الأعمال — عيادات الأسنان هي تركيزنا الكامل، لذلك نعرف تمامًا ما الذي يجعل صورة الحالة أو إعلان الإجراء أو الموشن جرافيك يترك أثرًا فعليًا لدى المرضى.
+      </p>
+
+
+      <a
+        href="about.html"
+        class="btn-teal"
+      >
+        اقرأ المزيد عنا
+      </a>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     TESTIMONIALS
+======================================================= -->
+
+<section class="testimonials">
+
+  <div class="wrap">
+
+
+    <div class="section-head reveal">
+
+      <div
+        class="eyebrow"
+        style="color:var(--teal-800);"
+      >
+        ماذا تقول العيادات
+      </div>
+
+
+      <h2>
+        موثوقون من قبل العيادات التي نعمل معها
+      </h2>
+
+    </div>
+
+
+    <div class="t-grid">
+
+
+      <div class="t-card reveal">
+
+        <p>
+          "أخيرًا صارت منشوراتنا تبدو وكأنها لعيادة حقيقية، لا قالبًا جاهزًا."
+        </p>
+
+
+        <div class="t-name">
+          د. رنا ك.
+        </div>
+
+
+        <div class="t-role">
+          صاحبة عيادة
+        </div>
+
+      </div>
+
+
+      <div class="t-card reveal">
+
+        <p>
+          "باقة عرض الحالة سهّلت علينا كثيرًا شرح الإجراءات للمرضى."
+        </p>
+
+
+        <div class="t-name">
+          د. عمر س.
+        </div>
+
+
+        <div class="t-role">
+          صاحب عيادة
+        </div>
+
+      </div>
+
+
+      <div class="t-card reveal">
+
+        <p>
+          "أسعار واضحة من البداية، والعرض الاقتصادي أبقى صفحتنا نشطة دون أي جهد إضافي من جهتنا."
+        </p>
+
+
+        <div class="t-name">
+          د. دانا ف.
+        </div>
+
+
+        <div class="t-role">
+          صاحبة عيادة
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     CTA
+======================================================= -->
+
+<section class="cta-band">
+
+  <div class="wrap">
+
+    <h2>
+      جاهز لتظهر عيادتك أمام الكاميرا؟
+    </h2>
+
+
+    <p>
+      أخبرنا عن عيادتك وسنجهّز لك باقة تناسبك.
+    </p>
+
+
+    <a
+      href="contact.html"
+      class="btn-dark"
+    >
+      اطلب عرض سعر
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer id="contact-footer">
+
+  <div class="wrap">
+
+
+    <div class="foot-grid">
+
+
+      <div>
+
+        <h4 class="brand-latin">
+          ميديكو ميديا
+        </h4>
+
+
+        <p style="font-size:14px;max-width:280px;">
+
+          تصوير فوتوغرافي، فيديو، وموشن جرافيك مصمم خصيصًا لعيادات الأسنان.
+
+        </p>
+
+      </div>
+
+
+      <div>
+
+        <h4>
+          الموقع
+        </h4>
+
+
+        <ul>
+
+          <li>
+            <a href="index.html#services">
+              الخدمات والأسعار
+            </a>
+          </li>
+
+
+          <li>
+            <a href="gallery.html">
+              أعمالنا
+            </a>
+          </li>
+
+
+          <li>
+            <a href="about.html">
+              من نحن
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+      <div>
+
+        <h4>
+          تواصل معنا
+        </h4>
+
+
+        <ul>
+
+          <li>
+            <a
+              class="contact-link"
+              href="tel:07710186661"
+            >
+              0771 018 6661
+            </a>
+          </li>
+
+
+          <li>
+            <a
+              class="contact-link"
+              href="mailto:sofy.maher2003@gmail.com"
+            >
+              sofy.maher2003@gmail.com
+            </a>
+          </li>
+
+        </ul>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="foot-bottom">
+
+      <span>
+        © 2026 ميديكو ميديا. جميع الحقوق محفوظة.
+      </span>
+
+
+      <span>
+        نرد خلال يوم عمل واحد
+      </span>
+
+    </div>
+
+
+  </div>
+
+</footer>
+
+
+<script>
+
+
+/* =========================================================
+   PAGE LOADER
+========================================================= */
+
+window.addEventListener('load', () => {
+
+  const loader =
+    document.getElementById('pageLoader');
+
+  const reducedMotion =
+    window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+  if(!loader) return;
+
+
+  if(reducedMotion){
+
+    loader.classList.add('hide');
+
+  }else{
+
+    setTimeout(() => {
+
+      loader.classList.add('hide');
+
+    },700);
+
+  }
+
+});
+
+
+/* =========================================================
+   NAV ELEMENTS
+========================================================= */
+
+const nav =
+  document.getElementById('mainNav');
+
+const navToggle =
+  document.getElementById('navToggle');
+
+const navLinks =
+  document.getElementById('navLinks');
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function closeMenu(){
+
+  if(!navLinks || !navToggle) return;
+
+  navLinks.classList.remove('open');
+
+  navToggle.setAttribute(
+    'aria-expanded',
+    'false'
+  );
+
+  navToggle.setAttribute(
+    'aria-label',
+    'فتح القائمة'
+  );
+
+  navToggle.textContent='☰';
+
+}
+
+
+if(navToggle && navLinks){
+
+  navToggle.addEventListener(
+    'click',
+    () => {
+
+      const isOpen =
+        navLinks.classList.toggle('open');
+
+
+      navToggle.setAttribute(
+        'aria-expanded',
+        String(isOpen)
+      );
+
+
+      navToggle.setAttribute(
+        'aria-label',
+        isOpen
+          ? 'إغلاق القائمة'
+          : 'فتح القائمة'
+      );
+
+
+      navToggle.textContent =
+        isOpen ? '×' : '☰';
+
+    }
+  );
+
+
+  navLinks
+    .querySelectorAll('a')
+    .forEach(link => {
+
+      link.addEventListener(
+        'click',
+        () => closeMenu()
+      );
+
+    });
+
+}
+
+
+/* Click outside */
+
+document.addEventListener(
+  'click',
+  event => {
+
+    if(
+      navLinks &&
+      navToggle &&
+      navLinks.classList.contains('open') &&
+      !navLinks.contains(event.target) &&
+      !navToggle.contains(event.target)
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* Escape */
+
+document.addEventListener(
+  'keydown',
+  event => {
+
+    if(event.key === 'Escape'){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   NAV SCROLL
+========================================================= */
+
+function updateNav(){
+
+  if(!nav) return;
+
+  if(window.scrollY > 15){
+
+    nav.classList.add('scrolled');
+
+  }else{
+
+    nav.classList.remove('scrolled');
+
+  }
+
+}
+
+updateNav();
+
+window.addEventListener(
+  'scroll',
+  updateNav,
+  {passive:true}
+);
+
+
+/* =========================================================
+   ACTIVE NAV
+========================================================= */
+
+if(navLinks){
+
+  /*
+    الصفحة الرئيسية:
+    الخدمات هي الـActive section
+  */
+
+  const servicesLink =
+    navLinks.querySelector(
+      'a[href="index.html#services"]'
+    );
+
+  if(servicesLink){
+
+    servicesLink.classList.add('active');
+
+  }
+
+}
+
+
+/* =========================================================
+   PAGE TRANSITION
+========================================================= */
+
+document
+  .querySelectorAll('a[href]')
+  .forEach(link => {
+
+    link.addEventListener(
+      'click',
+      function(event){
+
+        const href =
+          this.getAttribute('href');
+
+        if(!href) return;
+
+
+        /*
+          لا نعمل transition لهذه الحالات
+        */
+
+        if(
+          href.startsWith('#') ||
+          href.startsWith('tel:') ||
+          href.startsWith('mailto:') ||
+          href.startsWith('javascript:') ||
+          this.target === '_blank' ||
+          event.ctrlKey ||
+          event.metaKey ||
+          event.shiftKey ||
+          event.altKey
+        ){
+
+          return;
+
+        }
+
+
+        let targetUrl;
+
+        try{
+
+          targetUrl =
+            new URL(
+              href,
+              window.location.href
+            );
+
+        }catch{
+
+          return;
+
+        }
+
+
+        /*
+          External links
+        */
+
+        if(
+          targetUrl.origin !==
+          window.location.origin
+        ){
+
+          return;
+
+        }
+
+
+        /*
+          نفس الصفحة + hash
+        */
+
+        if(
+          targetUrl.pathname ===
+            window.location.pathname &&
+          targetUrl.hash
+        ){
+
+          return;
+
+        }
+
+
+        event.preventDefault();
+
+        closeMenu();
+
+        document.body.classList.add(
+          'page-leaving'
+        );
+
+
+        setTimeout(() => {
+
+          window.location.href =
+            targetUrl.href;
+
+        },500);
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer =
+  new IntersectionObserver(
+
+    entries => {
+
+      entries.forEach(entry => {
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add(
+            'visible'
+          );
+
+
+          observer.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+
+    {
+      threshold:.12,
+      rootMargin:
+        '0px 0px -50px 0px'
+    }
+
+  );
+
+
+/* Regular reveal elements */
+
+document
+  .querySelectorAll('.reveal')
+  .forEach(element => {
+
+    observer.observe(element);
+
+  });
+
+
+/* Service cards */
+
+document
+  .querySelectorAll('.service-card')
+  .forEach(card => {
+
+    observer.observe(card);
+
+  });
+
+
+/* =========================================================
+   CURSOR LIGHT
+========================================================= */
+
+const cursorLight =
+  document.getElementById(
+    'cursorLight'
+  );
+
+
+if(
+  cursorLight &&
+  window.matchMedia(
+    '(hover:hover) and (pointer:fine)'
+  ).matches
+){
+
+  let mouseX=0;
+  let mouseY=0;
+
+  let lightX=0;
+  let lightY=0;
+
+
+  document.addEventListener(
+    'mousemove',
+    event => {
+
+      mouseX =
+        event.clientX;
+
+      mouseY =
+        event.clientY;
+
+    }
+  );
+
+
+  function animateCursor(){
+
+    lightX +=
+      (mouseX - lightX) * .09;
+
+    lightY +=
+      (mouseY - lightY) * .09;
+
+
+    cursorLight.style.left =
+      lightX + 'px';
+
+    cursorLight.style.top =
+      lightY + 'px';
+
+
+    requestAnimationFrame(
+      animateCursor
+    );
+
+  }
+
+
+  animateCursor();
+
+
+  document.addEventListener(
+    'mouseleave',
+    () => {
+
+      cursorLight.style.opacity='0';
+
+    }
+  );
+
+
+  document.addEventListener(
+    'mouseenter',
+    () => {
+
+      cursorLight.style.opacity='.8';
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   HERO RINGS MOUSE PARALLAX
+========================================================= */
+
+const hero =
+  document.querySelector('.hero');
+
+const heroRings =
+  document.querySelector('.hero-rings');
+
+
+if(
+  hero &&
+  heroRings &&
+  window.matchMedia(
+    '(pointer:fine)'
+  ).matches
+){
+
+  hero.addEventListener(
+    'mousemove',
+    event => {
+
+      const rect =
+        hero.getBoundingClientRect();
+
+
+      const x =
+        event.clientX -
+        rect.left -
+        rect.width / 2;
+
+
+      const y =
+        event.clientY -
+        rect.top -
+        rect.height / 2;
+
+
+      heroRings.style.setProperty(
+        '--mx',
+        `${x * .025}px`
+      );
+
+
+      heroRings.style.setProperty(
+        '--my',
+        `${y * .025}px`
+      );
+
+    }
+  );
+
+
+  hero.addEventListener(
+    'mouseleave',
+    () => {
+
+      heroRings.style.setProperty(
+        '--mx',
+        '0px'
+      );
+
+
+      heroRings.style.setProperty(
+        '--my',
+        '0px'
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SERVICE CARD TILT
+========================================================= */
+
+if(
+  window.matchMedia(
+    '(pointer:fine)'
+  ).matches
+){
+
+  document
+    .querySelectorAll('.service-card')
+    .forEach(card => {
+
+      card.addEventListener(
+        'mousemove',
+        event => {
+
+          /*
+            لا نستخدم transform مباشرة
+            إذا كانت البطاقة ما زالت في reveal.
+          */
+
+          const rect =
+            card.getBoundingClientRect();
+
+
+          const x =
+            event.clientX -
+            rect.left;
+
+
+          const y =
+            event.clientY -
+            rect.top;
+
+
+          const rotateX =
+            ((y / rect.height) - .5) * -3;
+
+
+          const rotateY =
+            ((x / rect.width) - .5) * 3;
+
+
+          card.style.transform =
+            `translateY(-7px)
+             perspective(800px)
+             rotateX(${rotateX}deg)
+             rotateY(${rotateY}deg)`;
+
+        }
+      );
+
+
+      card.addEventListener(
+        'mouseleave',
+        () => {
+
+          card.style.transform =
+            'translateY(-7px)';
+
+        }
+      );
+
+    });
+
+}
+
+
+/* =========================================================
+   PHONE PARALLAX
+========================================================= */
+
+const phone =
+  document.querySelector('.phone-frame');
+
+
+if(
+  phone &&
+  window.matchMedia(
+    '(pointer:fine)'
+  ).matches
+){
+
+  document.addEventListener(
+    'mousemove',
+    event => {
+
+      const x =
+        (event.clientX /
+          window.innerWidth - .5) * 2;
+
+
+      const y =
+        (event.clientY /
+          window.innerHeight - .5) * 2;
+
+
+      phone.style.setProperty(
+        '--mouse-x',
+        x
+      );
+
+
+      phone.style.setProperty(
+        '--mouse-y',
+        y
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   PHONE RESET ON MOBILE
+========================================================= */
+
+window.addEventListener(
+  'resize',
+  () => {
+
+    if(
+      window.innerWidth <= 860 &&
+      navLinks
+    ){
+
+      closeMenu();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   BACK/FORWARD CACHE
+========================================================= */
+
+window.addEventListener(
+  'pageshow',
+  event => {
+
+    if(event.persisted){
+
+      document.body.classList.remove(
+        'page-leaving'
+      );
+
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
